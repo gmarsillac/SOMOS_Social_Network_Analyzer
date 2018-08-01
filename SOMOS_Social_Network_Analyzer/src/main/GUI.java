@@ -120,7 +120,7 @@ public class GUI {
         degreeButton.setSelected(true);
  
         distanceMatrixButton = new JCheckBox("Distance Matrix");
-        distanceMatrixButton.setSelected(true);
+        distanceMatrixButton.setSelected(false);
  
         distanceButton = new JCheckBox("Average Geodesic Distance");
         distanceButton.setSelected(true);
@@ -199,23 +199,10 @@ public class GUI {
 		                		System.out.println("Diameter: " + dc.getDiameter());
 		                	}
 		                }
-		                /*if(distanceMatrixButton.isSelected()) {
-		                	//System.out.println("Average Density: "+ graph.densityCalc());
-		                	printMatrix = true;
-		                	if(distanceButton.isSelected()) {
-			                	DistanceCalculator dc = new DistanceCalculator(graph, printMatrix, true);
-			                }
-		                	else {
-		                		DistanceCalculator dc = new DistanceCalculator(graph, printMatrix, false);
-		                	}
-		                }
-		                else if(distanceButton.isSelected()) {
-		                	DistanceCalculator dc = new DistanceCalculator(graph, printMatrix, true);
-		                	
-		                
-		                }*/
-		                
-		            } else {
+		                ComponentCalculator cc = new ComponentCalculator(graph);
+		                cc.printComponents();
+		            }
+					else {
 		                
 		            }
 				}

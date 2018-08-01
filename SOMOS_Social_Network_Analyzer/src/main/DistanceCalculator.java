@@ -64,7 +64,7 @@ public class DistanceCalculator {
 	private void printDistanceMatrix(int dist[][], boolean printMatrix)
 	    {
 	        if(printMatrix) {
-	        	System.out.println("The following matrix shows the shortest distances between every pair of vertices");
+	        	System.out.println("The following matrix shows the shortest distances between every pair of vertices:");
 	        }
 	        int sum = 0;
 	        int count = 0;
