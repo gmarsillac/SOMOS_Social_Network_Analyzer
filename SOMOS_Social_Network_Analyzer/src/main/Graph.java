@@ -1,10 +1,11 @@
 package main;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Graph {
 	private int size;
-	private LinkedList<Integer> adjListArray[]; //graph will be stored as an adjacency list
+	private LinkedList[] adjListArray; //graph will be stored as an adjacency list
 	private int totalExistingTies = -1;
 	private boolean directed; //denotes a directed or undirected graph
 	

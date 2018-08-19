@@ -31,7 +31,7 @@ public class GUI {
 	 private  JFileChooser fc;
 	 private  JFrame frame;
 	 
-	 private  JCheckBox densityButton, degreeButton, distanceMatrixButton, distanceButton, diameterButton, freemanButton;
+	 private  JCheckBox definitionButton, densityButton, degreeButton, distanceMatrixButton, distanceButton, diameterButton, freemanButton, componentRatioButton;
 	 private  CSVscanner fileIn;
 	 private Graph graph;
 	 private JTextField inputField;
@@ -113,6 +113,9 @@ public class GUI {
     	frame.remove(chooseButton);
     	
     	 //Create the check boxes.
+    	definitionButton = new JCheckBox("Include Measure Defintions");
+    	definitionButton.setSelected(false);
+    			
         densityButton = new JCheckBox("Density");
         densityButton.setSelected(true);
  
@@ -125,11 +128,14 @@ public class GUI {
         distanceButton = new JCheckBox("Average Geodesic Distance");
         distanceButton.setSelected(true);
         
-        diameterButton = new JCheckBox("Average Geodesic Distance");
+        diameterButton = new JCheckBox("Diameter");
         diameterButton.setSelected(true);
         
         freemanButton = new JCheckBox("Freeman Centralization");
         freemanButton.setSelected(true);
+        
+        componentRatioButton = new JCheckBox("Component Ratio");
+        componentRatioButton.setSelected(true);
  
         /*
         //Register a listener for the check boxes.
@@ -141,12 +147,14 @@ public class GUI {
         
         JPanel checkPanel = new JPanel(new GridLayout(0, 1));
         //add checkboxes to frame
+        checkPanel.add(definitionButton);
         checkPanel.add(densityButton);
         checkPanel.add(degreeButton);
         checkPanel.add(distanceMatrixButton);
         checkPanel.add(distanceButton);
         checkPanel.add(diameterButton);
         checkPanel.add(freemanButton);
+        checkPanel.add(componentRatioButton);
     	
     	//make choose button
         JButton runButton = new JButton("Run");  
@@ -155,7 +163,10 @@ public class GUI {
 		runButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				boolean define = false;
+				if(definitionButton.isSelected()) {
+					define = true;
+				}
 				//dialog for file save location and name
 				//make file chooser
 				JFileChooser saveChooser  = new JFileChooser();
@@ -182,25 +193,34 @@ public class GUI {
 					boolean printMatrix = false;
 					if (true) {
 		                if(densityButton.isSelected()) {
+		                	if(define) { System.out.println("Density = Number existing ties / number of possible ties");}
 		                	System.out.println("Density: "+ graph.densityCalc());
 		                }
 		                if(degreeButton.isSelected()) {
+		                	if(define) { System.out.println("Average Degree = Number of ties / number of nodes");}
 		                	System.out.println("Average Degree: "+ graph.averageDegreeCalc());
 		                }
 		                if(freemanButton.isSelected()) {
+		                	if(define) { System.out.println("Freeman Centralization is a degree centrality measure. It compares the graphs variability in degree to that of a perfect star graph which would be the most centralized and would score 1.0");}
 		                	System.out.println("Freeman Centralization: " + graph.freemanCentralization());
 		                }
 		                if(distanceMatrixButton.isSelected() || distanceButton.isSelected() || diameterButton.isSelected()) {
 		                	DistanceCalculator dc = new DistanceCalculator(graph, distanceMatrixButton.isSelected());
 		                	if(distanceButton.isSelected()) {
+		                		if(define) { System.out.println("Average Geodesic Distance = Average of all shortest distances between all node pairs");}
 		                		System.out.println("Average Geodesic Distance: " + dc.getDistance());
 		                	}
 		                	if(diameterButton.isSelected()) {
+		                		if(define) { System.out.println("Diameter = The longest distance between any two nodes in the graph");}
 		                		System.out.println("Diameter: " + dc.getDiameter());
 		                	}
 		                }
-		                ComponentCalculator cc = new ComponentCalculator(graph);
-		                cc.printComponents();
+		                if(componentRatioButton.isSelected()) {
+		                	ComponentCalculator cc = new ComponentCalculator(graph);
+		                	//System.out.println(cc.getComponentCount());
+		                	if(define) { System.out.println("Component Ratio = Number of components / number of nodes");}
+		                	System.out.println("Component Ratio: " + cc.getComponentRatio());
+		                }
 		            }
 					else {
 		                

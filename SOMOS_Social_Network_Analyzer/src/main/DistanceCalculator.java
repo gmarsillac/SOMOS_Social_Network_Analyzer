@@ -1,6 +1,7 @@
 package main;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class DistanceCalculator {
 	
@@ -15,7 +16,7 @@ public class DistanceCalculator {
 		this.graph = graph;
 		graphSize = graph.getGraphSize();
 		
-	    adjListArray = graph.getAdjListArray();
+	    adjListArray = graph.getAdjListArray().clone();
 	    run(printMatrix);
 	}
 	
@@ -24,8 +25,8 @@ public class DistanceCalculator {
 		dists = new int[graphSize][graphSize];
 		for (int i = 0; i < graphSize; i++) {
 			//gives distance weight of one to edges in adjacency List
-			while(!adjListArray[i].isEmpty()) {
-				dists[i][(int)adjListArray[i].removeFirst()] = 1;
+			for (Object j : adjListArray[i]) {
+				dists[i][(int) j] = 1;
 			}
 		}
 		//pick a vertex to check if its on the shortest path between source and destination
